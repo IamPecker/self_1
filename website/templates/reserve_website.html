@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'css/semantic.css' %}" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/list_custom.css' %}" media="screen" title="no title" charset="utf-8">
+    <script src='{% static "js/vue1.js" %}'></script>
+    <script src='{% static "js/reqwest.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/jquery-3.2.1.min.js" %}'></script>
+    <script type="text/javascript">
+        function getNowFormatDate() {
+            var date = new Date();
+            var seperator1 = "-";
+            var seperator2 = ":";
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                + " " + date.getHours() + seperator2 + date.getMinutes()
+                + seperator2 + date.getSeconds();
+            return currentdate;
+        }
+        function getCurrentDate() {
+
+            var date = new Date();
+            var seperator1 = "-";
+            var seperator2 = ":";
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+            return '"'+currentdate+'"';
+        }
+        function setStartCurrentTime() {
+            document.getElementById('start_time').innerHTML =getCurrentDate();
+        }
+        function setEndCurrentTime() {
+            document.getElementById('end_time').innerHTML =getCurrentDate();
+        }
+        $(document).ready(function () {
+            setStartCurrentTime();
+            setEndCurrentTime();
+            setInterval(setStartCurrentTime,5000);
+            setInterval(setEndCurrentTime, 5000);
+
+        });
+    </script>
+    <style type="text/css">
+        body {
+            background: url({% static 'images/super_blur_back2.jpg' %});
+            background-size: cover;
+        }
+
+        .ui.grid.divided.segment.container {
+            min-height: 400px;
+            width: 600px !important;
+            border: rgba(255, 0, 0, 0);
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+        }
+
+        .five.wide.column {
+            background: url({% static 'images/red_regi.jpg'  %});
+            background-size: cover;
+            background-position: 60% 0%;
+        }
+
+        form {
+            margin-top: 60px;
+        }
+
+        h1, h3, h4 {
+            font-family: 'Play', sans-serif !important;
+
+        }
+    </style>
+
+</head>
+{% verbatim %}
+<body id='app'>
+
+<div class="ui grid divided segment container">
+    <div class="five wide  column">
+        <a href="/website/index/">
+            <h4 class="ui inverted header">
+                <i class="angle left  icon"></i>
+
+            </h4>
+        </a>
+        <h1 class="ui inverted center aligned header" style="font-size: 40px;margin-top:55px">
+            <p class="sub header">
+                Welcome to
+            </p>
+            BASH
+        </h1>
+
+    </div>
+
+    <div class="eleven wide column">
+
+        <form class="ui form error" method="POST" action="">
+            <h3 class="ui dividing header">房间预订</h3>
+            <div class="{{ username_com }} field">
+                <label>姓名:</label>
+                <div class=" fields">
+                    <input type="text" v-model="modal.myUser" name="name" value="" placeholder="请输入您的姓名" required>
+                </div>
+            </div>
+            <div class="{{ computed_ph }} field" name="phone">
+                <label>手机号:</label>
+                <div class="fields">
+                    <input type="number" v-model="modal.myPhone" name="phone"  placeholder="请输入您的手机号" required>
+                </div>
+            </div>
+            <div class="{{ computed_peo}} field">
+                <label>房间号:</label>
+                <div class="fields">
+                    <input type="number" v-model="modal.myPhone" name="room_number"  placeholder="房间号" required>
+                </div>
+            </div>
+            <div class="{{ computed_peo}} field">
+                <label>开始时间:</label>
+                <div class="fields">
+                    <input type="date" name="start_time" placeholder="" required>
+                </div>
+            </div>
+            <div class="{{ computed_peo}} field">
+                <label>结束时间:</label>
+                <div class="fields">
+                    <input type="date" name="end_time" placeholder="" required>
+                </div>
+            </div>
+
+            <input class='ui button inverted red right floated' type="submit" name="button">提交</input>
+        </form>
+    </div>
+</div>
+
+</body>
+{% endverbatim %}
+</html>

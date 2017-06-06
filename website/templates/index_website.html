@@ -1,0 +1,270 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>线上网站</title>
+    <link rel="stylesheet" href="{% static 'css/semantic.css' %}" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'custom.css' %}" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" src="/static/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        var sendAjaxRequest = function (method, action, data, success, error) {
+            var url = action;
+            $.ajax({
+                type: method,
+                url: url,
+                cache: false,
+                data: data,
+                success: success,
+                error: error
+            });
+        };
+        var success = function (result) {
+            alert('呼叫吧台成功');
+        };
+        var error = function () {
+            alert("网络异常");
+        };
+        sendAjaxRequest('POST', '/website/callbar_website/',{'room_number': 123}, success, error);
+    </script>
+</head>
+<body>
+
+<div class="ui vertical basic segment masthead">
+    <div class="ui inverted text menu">
+        <div class="ui inverted white huge header">
+            BASHION
+        </div>
+
+        <div class="right menu">
+            {% if request.user.is_authenticated %}
+                <div class="item">
+                    <h5 class="ui inverted header">
+                        <div class="ui avatar image">
+                            <img src="{% static 'images/default.png' %}" alt="">
+                        </div>
+
+                        <span>{{ request.user.username }}</span>
+
+                    </h5>
+                </div>
+                <div class="item">
+                    <a href=" {% url 'logout' %} " class="ui inverted circular button">Logout</a>
+                </div>
+            {% else %}
+                <div class="item">
+                    <h5 class="ui inverted header">
+                        <div class="ui avatar image">
+                            <img src="{% static 'images/default.png' %}" alt="">
+                        </div>
+
+                        <span>username</span>
+
+                    </h5>
+                </div>
+                <div class="item">
+                    <a href="{% url 'login' %}" class="ui inverted circular button">login/register</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <h1 class="ui inverted center aligned header slogan">
+        BASHION
+        <p class="inverted sub header">
+            WELCOME
+        </p>
+        {% if request.user.is_authenticated %}
+            <div class="ui buttons">
+                <a href="{% url 'reserve_website' %}" type="button" name="button" class="ui red circular button"
+                   value="">预定</a>
+                <div class="or"></div>
+                <a href="{% url 'search_website' %}" type="button" name="button" class="ui red circular button"
+                   value="">查询价格</a>
+            </div>
+            <div class="ui buttons">
+                <a href="{% url 'selectsong_website' %}" type="button" name="button" class="ui red circular button"
+                   value="">点歌</a>
+                <div class="or"></div>
+                <button onclick="sendAjaxRequest('POST', '/website/callbar_website/',{'room_id': 123}, success, error)" type="button" name="button" class="ui red circular button"
+                        value="">呼叫吧台
+                </button>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}" style='width:220px' type="button" name="button" class="ui red circular button"
+               value="">注册一个</a>
+        {% endif %}
+    </h1>
+</div>
+
+<div class="ui vertical basic segment recommended">
+    <h1 class="ui center aligned header">你的选择，最时尚的生活。</h1>
+    <div class="ui three column grid container">
+        <div class="column">
+            <div class="ui inverted segment card-view"
+                 style="background: url('{% static "images/1.jpg" %}');background-size: cover;background-repeat: no-repeat;">
+                <h3 class="ui header title">专业的声响设备</h3>
+                <h4 class="ui header">听的见的世界</h4>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="ui inverted segment card-view"
+                 style="background: url('{% static "images/2.jpg" %}');background-size: cover;background-repeat: no-repeat;">
+                <h3 class="ui header title">优质服务</h3>
+                <h4 class="ui header">荣幸为您服务</h4>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="ui inverted segment card-view"
+                 style="background: url('{% static "images/3.jpg" %}');background-size: cover;background-repeat: no-repeat;">
+                <h3 class="ui header title">实惠的套餐</h3>
+                <h4 class="ui header">仅需一顿肯德基的价格</h4>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="ui inverted segment card-view"
+                 style="background: url('{% static "images/4.jpg" %}');background-size: cover;background-repeat: no-repeat;">
+                <h3 class="ui header title">环境优雅</h3>
+                <h4 class="ui header">每一寸空间，都为您精心设计</h4>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="ui inverted segment card-view"
+                 style="background: url('{% static "images/5.jpg" %}');background-size: cover;background-repeat: no-repeat;">
+                <h3 class="ui header title">放松心情</h3>
+                <h4 class="ui header">放飞自我，拥抱梦想</h4>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="ui inverted segment card-view"
+                 style="background: url('{% static "images/6.jpg" %}');background-size: cover;background-repeat: no-repeat;">
+                <h3 class="ui header title">做自己</h3>
+                <h4 class="ui header">成为独特的BSAHION，成就独特的你</h4>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="ui inverted red basic segment people-say">
+    <h3 class="ui center aligned header">流光溢彩，握紧最美的青春</h3>
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui circular inverted segment"
+                 style="background: url('{% static "images/timg.jpg" %}');background-size: cover;background-repeat: no-repeat;">
+                <i class="icon red inverted circular star"></i>
+                <h4 class="ui inverted header">
+                    happy
+                </h4>
+            </div>
+        </div>
+
+        <div class="four wide column">
+            <div class="ui circular inverted segment"
+                 style="background: url('{% static "images/timg1.jpg" %}');background-size: cover;background-repeat: no-repeat;">
+                <i class="icon red inverted circular star"></i>
+                <h4 class="ui inverted header">
+                    环境非常棒
+                </h4>
+            </div>
+        </div>
+
+
+        <div class="four wide column">
+            <div class="ui circular inverted segment"
+                 style="background: url('{% static "images/timg2.jpg" %}');background-size: cover;background-repeat: no-repeat;">
+                <i class="icon red inverted circular star"></i>
+                <h4 class="ui inverted header">
+                    值得一玩
+                </h4>
+            </div>
+        </div>
+
+
+        <div class="four wide column">
+            <div class="ui circular inverted segment"
+                 style="background: url('{% static "images/timg3.jpg" %}');background-size: cover;background-repeat: no-repeat;">
+                <i class="icon red inverted circular star"></i>
+                <h4 class="ui inverted header">
+                    非常好的体验
+                </h4>
+            </div>
+        </div>
+
+
+    </div>
+    <button type="button" name="button" style="width:12%" class="ui inverted red circular button">我只是个标签</button>
+</div>
+
+<div class="ui vertical  very padded red segment">
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui image">
+                <div class="ui huge header">
+                    BASHION
+                </div>
+
+            </div>
+        </div>
+
+        <div class="four wide column">
+            <div class="ui vertical  text menu">
+                <div class="item">
+                    <h3 class="ui  header">Company</h3>
+                </div>
+
+                <div class="item">
+                    Address : CN
+                </div>
+
+                <div class="item">
+                    Tel : 010-66666
+                </div>
+
+                <div class="item">
+                    Fax : 010-66666
+                </div>
+            </div>
+        </div>
+
+        <div class="four wide column">
+            <div class="ui vertical  text menu">
+                <div class="item">
+                    <h3 class="ui  header">Company</h3>
+                </div>
+
+                <div class="item">
+                    Address : CN
+                </div>
+
+                <div class="item">
+                    Tel : 010-66666
+                </div>
+
+                <div class="item">
+                    Fax : 010-66666
+                </div>
+            </div>
+        </div>
+
+        <div class="four wide column">
+            <div class="ui vertical  text menu">
+                <div class="item">
+                    Designed by
+                </div>
+                <div class="item">
+                    <h3 class="ui header logo">BASHION Company</h3>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

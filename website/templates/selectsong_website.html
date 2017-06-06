@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'css/semantic.css' %}" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/list_custom.css' %}" media="screen" title="no title" charset="utf-8">
+    <script src='{% static "js/vue1.js" %}'></script>
+    <script src='{% static "js/reqwest.js" %}'></script>
+    <style type="text/css">
+        body {
+            background: url({% static 'images/super_blur_back2.jpg' %});
+            background-size: cover;
+        }
+
+        .ui.grid.divided.segment.container {
+            min-height: 400px;
+            width: 600px !important;
+            border: rgba(255, 0, 0, 0);
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+        }
+
+        .five.wide.column {
+            background: url({% static 'images/red_regi.jpg'  %});
+            background-size: cover;
+            background-position: 60% 0%;
+        }
+
+        form {
+            margin-top: 60px;
+        }
+
+        h1, h3, h4 {
+            font-family: 'Play', sans-serif !important;
+
+        }
+
+        .eleven.wide.column.con {
+            position: relative;
+        }
+
+        #context_pri {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        div span {
+            width: 25px;
+            /*font-size: 2.28em;*/
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        .ui.large.table {
+            width: 300px;
+        }
+    </style>
+
+</head>
+{% verbatim %}
+<body id='app'>
+<div class="ui grid divided segment container">
+    <div class="five wide  column">
+        <a href="/website/index/">
+            <h4 class="ui inverted header">
+                <i class="angle left  icon"></i>
+
+            </h4>
+        </a>
+        <h1 class="ui inverted center aligned header" style="font-size: 40px;margin-top:55px">
+            <p class="sub header">
+                Welcome to
+            </p>
+            BASH
+        </h1>
+
+    </div>
+
+    <audio controls>
+        <source src='{{ MEDIA_URL }}laker.mp3'/>
+        <source src='{{ MEDIA_URL }}missyou.mp3'/>
+        <source src='{{ MEDIA_URL }}Someone Like You.mp3'/>
+    </audio>
+
+</div>
+
+</body>
+{% endverbatim %}
+
+</html>

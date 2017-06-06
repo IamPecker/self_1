@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% block title %}
+      base_title
+    {% endblock %}
+      <link rel="stylesheet" href="css/semantic.css">
+    {% block css %}
+      there will is css.
+    {% endblock %}
+  </head>
+  <body>
+    <div class="fixed_head">
+      {% block fixed_head %}
+        fixed head at here.
+      {% endblock %}
+    </div>
+
+    <div class="banner">
+      {% block banner %}
+        there will be banner.
+      {% endblock %}
+    </div>
+
+    <div class="body">
+      {% block body %}
+        there will be banner.
+      {% endblock %}
+    </div>
+
+
+    <div class="footer">
+      {% block footer %}
+        there will be footer.
+      {% endblock %}
+    </div>
+
+
+  </body>
+</html>

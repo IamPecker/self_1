@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>房间系统</title>
+        <link rel="stylesheet" href="{% static 'css/semantic.css' %}" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="{% static 'css/list_custom.css' %}"  media="screen" title="no title" charset="utf-8">
+        <script src='{% static "js/vue1.js" %}'></script>
+        <script src='{% static "js/reqwest.js" %}'></script>
+        <style type="text/css">
+            body {
+                background: url({% static 'images/super_blur_back2.jpg' %});
+                background-size: cover;
+            }
+
+            .ui.segment.container{
+                min-height: 400px;
+                width:1100px !important;
+                border:rgba(255, 0, 0, 0);
+                position: absolute;
+                left: 50%;
+                top:45%;
+                transform: translate(-50%,-50%);
+            }
+
+            .seven.wide.column.red.ui.button {
+              height: 400px;
+              position: relative;
+              text-align: center;
+              line-height: 350px;
+              font-size: 50px;
+            }
+
+            .ui.grid div{
+              padding: 0;
+              margin: 0;
+              border: 0;
+            }
+
+            .five.wide.column {
+                background: url({% static 'images/red_regi.jpg'  %});
+                background-size: cover;
+                background-position: 60% 0%;
+            }
+
+            form {
+                margin-top: 60px;
+            }
+            h1,h3,h4{
+                font-family: 'Play', sans-serif !important;
+
+            }
+            .eleven.wide.column.con{
+              position: relative;
+            }
+            #context_pri{
+              position: absolute;
+              left: 50%;
+              top:50%;
+              transform: translate(-50%,-50%);
+            }
+            div span{
+              width:25px;
+              /*font-size: 2.28em;*/
+              padding-right: 10px;
+              padding-left: 10px;
+            }
+            .ui.large.table{
+              width:300px;
+            }
+        </style>
+
+    </head>
+    {% verbatim %}
+    <body id='app'>
+        <div class="ui segment container">
+          <div class="ui grid">
+            <div v-on:click="step_to_1" class="seven wide column red ui  button">
+              点歌台
+            </div>
+            <div class="two wide column ui tertiary segment">
+
+            </div>
+            <div v-on:click="step_to_2" class="seven wide column red ui  button">
+              呼叫吧台
+            </div>
+          </div>
+        </div>
+
+        <script>
+          var vm = new Vue({
+            el:'#app',
+            data:{
+              rooms:[],
+              sma:0,
+              mid:0,
+              lar:0,
+            },
+            methods:{
+              step_to_1:function(){
+                self.location='/website/index';
+              },
+              step_to_2:function(){
+                self.location='/website/index';
+              },
+              getData:function(){
+                var self = this;
+                reqwest({
+                  url:"http://localhost:8000/api/room?format=json",
+                  type:'json',
+                  method:'get',
+                  success:function(resp){
+                    self.rooms = resp
+                    self.cha();
+                  }
+                });
+              },
+              cha:function(){
+                var self = this;
+                for (var i in self.rooms){
+                  if(self.rooms[i].type == 'small' && self.rooms[i].is_use == false){
+                    self.sma += 1;
+                  } else if (self.rooms[i].type == 'middle' && self.rooms[i].is_use == false) {
+                    self.mid += 1;
+                  }else if (self.rooms[i].type == 'large' && self.rooms[i].is_use == false) {
+                    self.lar += 1;
+                  }
+                };
+                // alert(self.sma);
+                // alert(self.mid);
+                // alert(self.lar);
+              },
+            },
+            ready:function(){
+              this.getData();
+            },
+          })
+        </script>
+    </body>
+    {% endverbatim %}
+
+</html>

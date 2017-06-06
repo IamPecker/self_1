@@ -1,0 +1,19 @@
+{% if is_superuser %}
+    {% if is_comment_deleted %}
+        <input style=" padding: 1px 12px;margin-bottom: 5px;" type="button"
+               class="delete-episode-comment change-status btn-success " episode_comment_id="{{ episode_comment_id }}"
+               disabled="disabled" value="已删除">
+        </input>
+    {% else %}
+        <input style=" padding: 1px 12px;margin-bottom: 5px;" type="button"
+               class="delete-episode-comment change-status btn-success " episode_comment_id="{{ episode_comment_id }}"
+               value="删除评论">
+        </input>
+    {% endif %}
+{% else %}
+{% endif %}
+{% if can_use %}
+    <a href="/website/reserve/">马上预订</a>
+{% else %}
+    <label>--</label>
+{% endif %}
